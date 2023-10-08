@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Калькулятор</title>
+    <style>
+      body {
+        background-color: #f4f4f4;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        font-family: 'Arial', sans-serif;
+      }
+
+      .calculator {
+        background-color: #eaeaea;
+        border-radius: 10px;
+        width: 300px;
+        padding: 20px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .input-wrapper {
+        background-color: #fff;
+        border-radius: 5px;
+        padding: 10px;
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+      }
+
+      .input-wrapper input {
+        border: none;
+        outline: none;
+        font-size: 24px;
+        width: 100%;
+        text-align: right;
+      }
+
+      .buttons {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-gap: 10px;
+      }
+
+      .buttons button {
+        background-color: #f9f9f9;
+        border: none;
+        outline: none;
+        font-size: 20px;
+        padding: 15px;
+        border-radius: 5px;
+        cursor: pointer;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+
+      .buttons button.operator {
+        background-color: #ff9500;
+        color: #fff;
+      }
+
+      .buttons button.clear {
+        background-color: #f00;
+        color: #fff;
+      }
+
+      .history {
+        margin-top: 15px;
+        font-size: 14px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="calculator">
+      <div class="input-wrapper">
+        <input type="text" id="input" readonly />
+      </div>
+      <div class="buttons">
+        <button onclick="appendValue(7)">7</button>
+        <button onclick="appendValue(8)">8</button>
+        <button onclick="appendValue(9)">9</button>
+        <button class="operator" onclick="appendOperator('/')">÷</button>
+        <button onclick="appendValue(4)">4</button>
+        <button onclick="appendValue(5)">5</button>
+        <button onclick="appendValue(6)">6</button>
+        <button class="operator" onclick="appendOperator('*')">×</button>
+        <button onclick="appendValue(1)">1</button>
+        <button onclick="appendValue(2)">2</button>
+        <button onclick="appendValue(3)">3</button>
+        <button class="operator" onclick="appendOperator('+')">+</button>
+        <button onclick="appendValue(0)">0</button>
+        <button onclick="appendOperator('-')">-</button>
+        <button class="clear" onclick="clearInput()">C</button>
+        <button class="operator" onclick="calculate()">=</button>
+      </div>
+      <div class="history" id="history"></div>
+    </div>
+
+    <script>
+      const input = document.getElementById('input');
+      const history = document.getElementById('history');
+      let expression = '';
+
+      function appendValue(value) {
+        input.value += value;
+        expression += value;
+      }
+
+      function appendOperator(operator) {
+        input.value += operator;
+        expression += operator;
+      }
+
+      function clearInput() {
+        input.value = '';
+        expression = '';
+      }
+
+      function calculate() {
+        const result = eval(expression);
+        appendHistory(expression + ' = ' + result);
+        clearInput();
+      }
+
+      function appendHistory(value) {
+        const p = document.createElement('p');
+        p.textContent = value;
+        history.appendChild(p);
+      }
+    </script>
+  </body>
+</html>
